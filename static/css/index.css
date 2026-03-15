@@ -117,9 +117,35 @@ body {
 .publication-title {
     font-family: 'Inter', sans-serif !important;
     font-weight: 800 !important;
-    color: var(--text-primary) !important;
-    margin-bottom: 2rem !important;
-    line-height: 1.1 !important;
+    background: linear-gradient(135deg, #1e293b 0%, #2563eb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.25rem !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.02em !important;
+}
+
+/* Venue / Acceptance Badge */
+.venue-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border: 1.5px solid #93c5fd;
+    color: #1d4ed8;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.55rem 1.25rem;
+    border-radius: 999px;
+    margin-bottom: 1.75rem;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+    letter-spacing: 0.01em;
+}
+
+.venue-badge i {
+    color: #f59e0b;
+    font-size: 1.1rem;
 }
 
 .publication-banner {
@@ -731,6 +757,142 @@ a:focus {
   outline-offset: 2px;
 }
 
+
+/* Prompt Gallery */
+.prompt-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.prompt-card {
+    border-radius: var(--border-radius-lg);
+    padding: 1.5rem;
+    border: 1.5px solid;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    text-align: left;
+}
+
+.prompt-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.prompt-card.system {
+    background: #eff6ff;
+    border-color: #93c5fd;
+}
+
+.prompt-card.input {
+    background: #f0fdf4;
+    border-color: #86efac;
+}
+
+.prompt-card.output {
+    background: #fff7ed;
+    border-color: #fdba74;
+}
+
+.prompt-card-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.prompt-card.system .prompt-card-label { color: #1d4ed8; }
+.prompt-card.input  .prompt-card-label { color: #15803d; }
+.prompt-card.output .prompt-card-label { color: #c2410c; }
+
+.prompt-card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.prompt-card-body {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+    background: rgba(255,255,255,0.6);
+    border-radius: var(--border-radius);
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    white-space: pre-wrap;
+}
+
+/* Q&A Accordion */
+.qa-list {
+    max-width: 780px;
+    margin: 2rem auto 0;
+    text-align: left;
+}
+
+details.qa-item {
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 0.75rem;
+    background: var(--background-primary);
+    overflow: hidden;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+details.qa-item[open] {
+    box-shadow: var(--shadow-md);
+    border-color: #93c5fd;
+}
+
+details.qa-item summary {
+    padding: 1.25rem 1.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    user-select: none;
+}
+
+details.qa-item summary::-webkit-details-marker { display: none; }
+
+details.qa-item summary::after {
+    content: '\f078';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+details.qa-item[open] summary::after {
+    transform: rotate(180deg);
+    color: var(--primary-color);
+}
+
+details.qa-item[open] summary {
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.qa-answer {
+    padding: 1.25rem 1.5rem;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+}
 
 /* Print styles */
 @media print {

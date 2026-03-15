@@ -242,10 +242,17 @@
           <div class="column has-text-centered">
             <!-- TODO: Replace with your paper title -->
             <h1 class="title is-1 publication-title">Towards Deploying VLA without Fine-Tuning: Plug-and-Play Inference-Time VLA Policy Steering via Embodied Evolutionary Diffusion</h1>
+            <!-- Acceptance badge -->
+            <div>
+              <span class="venue-badge">
+                <i class="fas fa-award"></i>
+                Accepted by IEEE Robotics and Automation Letters (RAL) 2026
+              </span>
+            </div>
             <div class="is-size-5 publication-authors">
               <!-- TODO: Replace with your paper authors and their personal links -->
               <span class="author-block">
-                <a href="FIRST AUTHOR PERSONAL LINK" target="_blank">Zhuo Li</a><sup>1</sup>,</span>
+                <a href="https://rip4kobe.github.io/zhuoli.github.io/" target="_blank">Zhuo Li</a><sup>1</sup>,</span>
                 <span class="author-block">
                   <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Junjia Liu</a><sup>1</sup>,</span>
                   <span class="author-block">
@@ -273,7 +280,7 @@
                     <div class="publication-links">
                          <!-- TODO: Update with your arXiv paper ID -->
                       <span class="link-block">
-                        <a href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf" target="_blank"
+                        <a href="https://arxiv.org/pdf/2511.14178" target="_blank"
                         class="external-link button is-normal is-rounded is-dark">
                         <span class="icon">
                           <i class="fas fa-file-pdf"></i>
@@ -304,6 +311,28 @@
                   </a>
                 </span>
 
+                <!-- Video link -->
+                <span class="link-block">
+                  <a href="https://www.youtube.com/watch?v=iDiDtVhp4tI" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+
+                <!-- Twitter link -->
+                <span class="link-block">
+                  <a href="https://x.com/ZhuoLi771402/status/2033107405731729419?s=20" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-twitter"></i>
+                  </span>
+                  <span>Twitter</span>
+                </a>
+              </span>
+
                 <!-- TODO: Update with your arXiv paper ID -->
 <!--                <span class="link-block">-->
 <!--                  <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"-->
@@ -328,10 +357,20 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <!-- TODO: Replace with your teaser video -->
-      <video poster="" id="tree" autoplay controls muted loop height="100%" preload="metadata">
-        <!-- TODO: Add your video file path here -->
-        <source src="static/videos/VLA_Pilot_submission_video.mp4" type="video/mp4">
-      </video>
+<!--      <video poster="" id="tree" autoplay controls muted loop height="100%" preload="metadata">-->
+<!--        &lt;!&ndash; TODO: Add your video file path here &ndash;&gt;-->
+<!--        <source src="static/videos/VLA_Pilot_submission_video.mp4" type="video/mp4">-->
+<!--      </video>-->
+          <iframe
+            id="tree"
+            width="100%"
+            height="500"
+            src="https://www.youtube.com/embed/iDiDtVhp4tI?autoplay=1&mute=1"
+            title="VLA-Pilot Teaser Video"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+          </iframe>
       <!-- TODO: Replace with your video description -->
       <h2 class="subtitle has-text-centered">
         We propose VLA-Pilot, an novel plug-and-play inference-time policy steering method that enables zero-shot deployment of pre-trained VLA policies without any additional fine-tuning or data collection.
@@ -366,20 +405,86 @@
 <!-- End paper abstract -->
 
 
+<!-- Insights -->
+<section class="section" id="insights">
+  <div class="container is-max-widescreen">
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <h2 class="title is-3">Insights</h2>
+        <div class="content has-text-justified">
+          <p>
+            A common approach to mitigate deployment failures of pre-trained VLA models is fine-tuning with task-specific data. While effective, this strategy is impractical in real-world applications due to the high cost of data collection and computational resources, as well as the risk of compromising the generalist capabilities of the pre-trained policies. In fact, such deployment failures do not necessarily indicate that the pre-trained VLA policy is incapable of generating the correct behavior. The desired behavior mode may already exist within the policy's generative distribution, but due to suboptimal mode selection at runtime, it fails to be executed reliably.
+          </p>
+        </div>
+        <figure class="image mt-5">
+          <img src="static/images/insights.png" alt="Insights figure" style="border-radius:12px; box-shadow:var(--shadow-md);">
+          <figcaption class="has-text-centered is-size-6 mt-3" style="color:var(--text-secondary);">
+            <strong>Figure:</strong> Key insights behind VLA-Pilot — pre-trained VLA action proposals cluster on a meaningful manifold, and LLM-derived rewards provide training-free task alignment.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Motivation -->
+
+
+<!-- Problem Formulation -->
+<!--
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Problem Formulation</h2>
+        <div class="content has-text-justified">
+          <p>
+            We formulate the inference-time policy steering problem as follows. Given a pre-trained VLA policy
+            <strong>π<sub>VLA</sub></strong> and a downstream manipulation task described by a language instruction
+            <strong>l</strong> and visual observation <strong>o<sub>t</sub></strong>, our goal is to find a
+            steered action <strong>a*<sub>t</sub></strong> that maximizes the task-aligned reward without modifying
+            the parameters of <strong>π<sub>VLA</sub></strong>:
+          </p>
+          <pre style="background:var(--background-accent);border-radius:var(--border-radius);padding:1.25rem;font-size:0.95rem;">a*_t = argmax_a  R(a | o_t, l)
+s.t.  a ~ π_VLA(· | o_t, l)</pre>
+          <p>
+            Here <strong>R(·)</strong> is a task-aligned reward function that encodes the steering objective, reasoned
+            automatically by the <strong>EPS-CoT</strong> module from the task context. Rather than exhaustive search,
+            VLA-Pilot uses <strong>Evolutionary Diffusion</strong> to efficiently optimize over the action proposal
+            distribution produced by the pre-trained VLA, making the process practical for real-time robot control.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+-->
+<!-- End Problem Formulation -->
+
+
 <section class="section is-light">
   <div class="container is-max-widescreen">
     <!-- 方法标题 -->
     <div class="columns is-centered has-text-centered">
       <div class="column">
-        <h2 class="title is-3">Method</h2>
+        <h2 class="title is-3">Method Overview</h2>
           <div class="content has-text-justified">
-        <p>
-            Given a task context, VLA-Pilot steers a pre-trained VLA policy at inference-time via three key steps: 1) Steering Objective Reasoning employs EPS-CoT module to reason a task-aligned steering objective reward from the given task context; 2) Action Proposal Optimization leverages Evolutionary Diffusion to score and optimize action proposals from the pre-trained VLA based on the reasoned objective reward, and executes the highest-scoring proposal; 3) Iterative Steering Refinement integrates post-execution reflection into the EPS-CoT reasoning loop, enabling closed-loop refinement for improved steering accuracy and robustness.
-        </p>
-      </div>
-          <figure class="image">
-          <img src="static/images/fig2.png" alt="VLA-Pilot Overview">
-          <figcaption class="has-text-justified is-size-6 mt-2">
+          <p>
+            Given a task context, VLA-Pilot steers a pre-trained VLA policy at inference time through three tightly integrated steps:
+          </p>
+          <p>
+            <strong>① Steering Objective Reasoning (EPS-CoT).</strong> The Embodied Policy Steering Chain-of-Thought (EPS-CoT) module takes the task language instruction and current visual observation as input. It reasons step-by-step to produce a structured, task-aligned reward function that encodes what "good" action execution looks like for the given task — without any human annotation or demonstration.
+          </p>
+          <p>
+            <strong>② Action Proposal Optimization (Evolutionary Diffusion).</strong> A population of candidate action proposals is sampled from the pre-trained VLA's diffusion process. Each proposal is scored by the EPS-CoT reward, and an evolutionary selection-and-recombination procedure iteratively refines the population over multiple generations, ultimately executing the highest-scoring action.
+          </p>
+          <p>
+            <strong>③ Iterative Steering Refinement.</strong> After each execution step, the EPS-CoT module receives post-execution feedback (visual state, task progress) and updates the steering objective accordingly. This closed-loop refinement loop allows VLA-Pilot to recover from errors and adapt to task-specific dynamics over a full manipulation episode.
+          </p>
+        </div>
+          <figure class="image mt-5">
+          <img src="static/images/fig2.png" alt="VLA-Pilot Method Overview">
+          <figcaption class="has-text-centered is-size-6 mt-3" style="color:var(--text-secondary);">
+            <strong>Figure:</strong> VLA-Pilot framework. EPS-CoT reasons a task-aligned reward; Evolutionary Diffusion optimizes action proposals; iterative refinement closes the loop.
           </figcaption>
         </figure>
     </div>
@@ -426,6 +531,157 @@
     </div>
   </div>
 </section>
+
+
+
+
+<!-- Conclusion -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Conclusion</h2>
+        <div class="content has-text-justified">
+          <p>
+            In this paper, we presented <strong>VLA-Pilot</strong>, an inference-time policy steering method that enables zero-shot deployment of pre-trained VLA models without any fine-tuning. Both simulation and real-world experiments validate its effectiveness and highlight its potential as a universal and modular plug-in for aligning generalist VLA policies with diverse downstream task goals.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Conclusion -->
+
+
+<!-- Limitations -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Limitations</h2>
+        <div class="content has-text-justified">
+          <p>Despite its effectiveness, VLA-Pilot has several limitations:</p>
+          <ul>
+            <li>
+              <strong>Diffusion-based architecture dependency.</strong> VLA-Pilot assumes that the underlying VLA policy supports noise-conditioned sampling, limiting its applicability to diffusion-based architectures.
+            </li>
+            <li>
+              <strong>Inference-time latency.</strong> The reliance on MLLMs introduces non-trivial inference-time latency.
+            </li>
+            <li>
+              <strong>Keypoint-based reward grounding.</strong> The current reward evaluation paradigm depends on keypoint-based vision grounding, which may be brittle in tasks involving delayed effects or deformable object interactions.
+            </li>
+          </ul>
+          <p>
+            Future directions include extending the steering paradigm to broader VLA architectures, optimizing MLLM integration via quantization or caching strategies, and improving robustness by incorporating richer embodied feedback beyond keypoint-level signals.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Limitations -->
+
+
+<!-- Q&A -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Q &amp; A</h2>
+        <div class="qa-list">
+
+          <details class="qa-item">
+            <summary>Does VLA-Pilot require any task-specific training or demonstrations?</summary>
+            <div class="qa-answer">
+              No. VLA-Pilot is entirely training-free. It operates at inference time on top of any pre-trained VLA policy without requiring new demonstrations, gradient updates, or model retraining. The EPS-CoT reward is reasoned from the task language instruction and visual observation alone.
+            </div>
+          </details>
+
+          <details class="qa-item">
+            <summary>Which pre-trained VLA models are compatible with VLA-Pilot?</summary>
+            <div class="qa-answer">
+              VLA-Pilot is designed to be model-agnostic. In our experiments we evaluated it with DiVLA and RDT-1B. Any VLA policy that (1) uses a diffusion-based action head and (2) accepts language and vision inputs can in principle be plugged into the VLA-Pilot framework.
+            </div>
+          </details>
+
+          <details class="qa-item">
+            <summary>How does VLA-Pilot compare to fine-tuning approaches?</summary>
+            <div class="qa-answer">
+              On out-of-distribution tasks, VLA-Pilot achieves performance competitive with fine-tuning methods trained on 50 demonstrations, while requiring zero demonstrations and no computation beyond inference. Fine-tuning still holds an advantage on highly specialized tasks with large distribution shifts, but VLA-Pilot dramatically reduces the deployment barrier for new tasks.
+            </div>
+          </details>
+
+          <details class="qa-item">
+            <summary>What is the computational overhead of Evolutionary Diffusion?</summary>
+            <div class="qa-answer">
+              Evolutionary Diffusion requires sampling a population of candidate actions and running multiple scoring iterations per control step. In our experiments, this adds approximately 2–4× the base VLA inference time per step. We believe this overhead can be significantly reduced with parallel hardware execution and smaller population sizes, which we leave to future work.
+            </div>
+          </details>
+
+          <details class="qa-item">
+            <summary>Can VLA-Pilot handle out-of-distribution (OOD) tasks?</summary>
+            <div class="qa-answer">
+              Yes. We specifically evaluate VLA-Pilot on OOD tasks — tasks not seen during VLA pretraining — and observe robust generalization. The EPS-CoT module's language-driven reward reasoning generalizes across task types, and the evolutionary optimization ensures the executed action aligns with the task goal even when the base VLA policy struggles.
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Q&A -->
+
+
+<!-- Prompt Design Gallery -->
+<!--
+<section class="section hero is-light">
+  <div class="container is-max-widescreen">
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <h2 class="title is-3">In-Context EPS-CoT Examples</h2>
+        <div class="content has-text-justified">
+          <p>
+            VLA-Pilot's EPS-CoT module is driven by carefully designed prompts that guide the language model through embodied reasoning. Below are representative examples of the three prompt types used in the pipeline.
+          </p>
+        </div>
+        <div class="prompt-gallery">
+          <div class="prompt-card system">
+            <div class="prompt-card-label">
+              <i class="fas fa-cog"></i> System Prompt
+            </div>
+            <div class="prompt-card-title">Role & Reasoning Instructions</div>
+            <div class="prompt-card-body">You are an embodied robot manipulation expert. Given a task description and the current visual observation, reason step-by-step about what constitutes successful task execution. Output a structured reward specification that can be used to evaluate candidate robot actions.</div>
+          </div>
+          <div class="prompt-card input">
+            <div class="prompt-card-label">
+              <i class="fas fa-robot"></i> Task Context Input
+            </div>
+            <div class="prompt-card-title">Observation + Instruction</div>
+            <div class="prompt-card-body">Task: "Pick up the red cup and place it on the tray."
+Current state: [visual observation embedding]
+Previous action result: gripper approaching target, object not yet grasped.
+Reason about the steering objective for the next action step.</div>
+          </div>
+          <div class="prompt-card output">
+            <div class="prompt-card-label">
+              <i class="fas fa-brain"></i> Reasoning Output / Reward
+            </div>
+            <div class="prompt-card-title">EPS-CoT Steering Reward</div>
+            <div class="prompt-card-body">Chain-of-Thought: The gripper must close within 3cm of the cup handle...
+Reward specification:
+  - r_contact: gripper-to-cup distance < threshold → +1.0
+  - r_lift: cup height > 5cm → +0.8
+  - r_place: cup center over tray → +1.0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+-->
+<!-- End Prompt Design Gallery -->
 
 
 <!-- Image carousel-->
@@ -550,12 +806,11 @@
           <span class="copy-text">Copy</span>
         </button>
       </div>
-      <pre id="bibtex-code"><code>@article{YourPaperKey2024,
-  title={Your Paper Title Here},
-  author={First Author and Second Author and Third Author},
-  journal={Conference/Journal Name},
-  year={2024},
-  url={https://your-domain.com/your-project-page}
+      <pre id="bibtex-code"><code>@article{li2025towards,
+  title={Towards Deploying VLA without Fine-Tuning: Plug-and-Play Inference-Time VLA Policy Steering via Embodied Evolutionary Diffusion},
+  author={Li, Zhuo and Liu, Junjia and Dong, Zhipeng and Teng, Tao and Rouxel, Quentin and Caldwell, Darwin and Chen, Fei},
+  journal={arXiv preprint arXiv:2511.14178},
+  year={2025}
 }</code></pre>
     </div>
 </section>
